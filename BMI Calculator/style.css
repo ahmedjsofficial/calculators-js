@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@700&display=swap');
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: 'Josefin Sans', sans-serif;
+}
+body{
+	display: flex;
+	min-height: 100vh;
+	overflow: hidden;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+}
+.container{
+	overflow-wrap: break-word;
+	word-wrap: break-word;
+	background-color: #ddd;
+	margin: auto;
+	padding: 5% 10%;
+}
+#HR{
+	max-width: 450px;
+	margin: 10px auto;
+	border: 1px solid #f23033;
+}
+.text-center{
+	text-align: center;
+	justify-content: center;
+}
+.title{
+	color: #fff;
+	font-weight: bolder;
+	font-size: 2.1rem;
+	background-color: #f23032;
+	padding: 17px 0 0 0;
+}
+.input-group{
+	margin-bottom: 2vh;
+}
+.input-group span{
+	color: #f23023;
+	font-size: 1.3rem;
+}
+.input-group .btn-theme{
+	cursor: pointer;
+	color: #ffff;
+	border: 0px solid transparent !important;
+	padding: 15px 20px;
+	background-color: #000;
+	font-size: 1.2rem;
+	transition: all 1s ease-in-out;
+	-ms-transition: all 1s ease-in-out;
+	-o-transition: all 1s ease-in-out;
+	-moz-transition: all 1s ease-in-out;
+	box-shadow: 0.1rem 0.1rem 1rem rgba(0,0,0,0.7);
+}
+.input-group .btn-theme:hover{
+	background-color: #f23023;
+	z-index: 1;
+	opacity: 1;
+	box-shadow: 0.1rem 0.1rem 1rem rgba(255, 0, 0,0.98);
+}
+.form-control:focus{
+	outline: 0px !important;
+	border: 0px solid transparent !important;
+}
+.form-control{
+	border: 0px solid transparent !important;
+	overflow-wrap: break-word;
+	word-wrap: break-word;
+	width: 20%;
+	padding: 0.8% 0;
+	box-shadow: 0.1rem 0.1rem 0.1rem rgba(0,0,0,0.7);
+}
+.form-txt h3{
+	color: #000;
+	text-align: center;
+	margin: 3vh 0 0 0;
+	font-weight: bolder;
+}

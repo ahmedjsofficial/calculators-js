@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>BMI Clculator</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+	<main class="container">
+		<div class="title text-center">
+			<h1>BMI Calculator</h1>
+			<hr id="HR">
+		</div>
+		<div class="form-Container">
+			<form method="GET" action="#" onsubmit="return false">
+				<div class="input-group">
+					<span>Enter Your Weight in kg: &nbsp;</span><input type="text" name="weight" id="weight" class="form-control" required="">
+				</div>
+				<div class="input-group">
+					<span>Enter Your Height in Foots and Inches: &nbsp;</span><input type="text" name="height" id="height" class="form-control" required="">
+					<input type="text" name="inch" id="Inches" class="form-control">
+				</div>
+				<div class="input-group">
+					<input type="submit" name="submit" class="form-control btn-theme" onclick="getbmiValue();" value="Click to Calc() BMIvalue" style="width: 41%;" required="">
+				</div>
+				<div class="input-group">
+					<span>BMI Value: &nbsp;</span><input type="text" name="BMI" id="BMIVal" class="form-control">
+				</div>
+				<div class="form-txt">
+					<h3>Over Weight will be value above from 45kg..in worst cases!</h3>
+				</div>
+			</form>
+		</div>
+	</main>
+
+
+	<script type="text/javascript">
+		function getbmiValue () {
+			var weight = document.getElementById("weight").value;
+			var height = document.getElementById("height").value;
+
+			height = height * 12;
+			height = height * 0.025; // There height will be in meteres
+			var newbmiValue = weight / (Math.pow(height,2));
+
+			Math.round(newbmiValue);
+			document.getElementById("BMIVal").value = newbmiValue;
+
+		}
+	</script>
+
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>CGPA Calculator</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+</head>
+<body>
+    
+    <main class="cal_panel">
+        <div class="container">
+            <div class="text-center text-danger mt-5">
+                <h1>CGPA Calulator</h1>
+            </div>
+            <form class="mt-5">
+                <div class="row gy-3 mx-lg-auto mx-md-auto mx-sm-auto mx-auto">
+                    <div class="col-lg-3 col-md-6 col-sm-10 mx-sm-auto col-10 mx-auto mx-lg-auto">
+                        <input type="text" name="courses" id="course-code" class="form-control" placeholder="Course" />
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-10 mx-sm-auto col-10 mx-auto mx-lg-auto">
+                        <input type="number" name="credithour" class="form-control" id="creditHour" placeholder="Enter Credit Hours (1-4)" min="0" max="29">
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-10 mx-sm-auto col-10 mx-auto mx-lg-auto">
+                        <select id="grade" class="form-control">
+                            <option value="">Enter Grades (0-4)</option>
+                            <option value="4">A</option>
+                            <option value="3">B</option>
+                            <option value="2">C</option>
+                            <option value="1">D</option>
+                            <option value="0">F</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-10 mx-sm-auto col-10 mx-auto mx-lg-auto">
+                        <input type="button" name="addmore" class="btn btn-primary" value="Add More" id="add" />
+                    </div>
+                </div>
+            </form>
+            <table id="table" class="table table-bordered mt-5 d-none">
+                <thead class="text-center">
+                    <tr>
+                        <th>Course Code</th>
+                        <th>Credit Hours</th>
+                        <th>Grade</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody"></tbody>
+                <tfoot id="tfoot"></tfoot>
+            </table>
+            <div class="row gy-3">
+                <div class="col-lg-3 col-md-6 col-sm-6 col-6 mx-auto mx-sm-auto mx-lg-auto">
+                    <input type="button" name="calculate" class="btn btn-dark form-control d-none" value="Calculate" id="calc-gp" />
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6 col-6 mx-auto mx-sm-auto mx-lg-auto">
+                    <input type="button" name="Reset" class="btn btn-danger form-control d-none" value="Reset" id="clear" />
+                </div>
+            </div>
+        </div>
+    </main>
+    <script type="text/javascript">
+        const add = document.querySelector("#add");
+        const courseCode = document.querySelector("#course-code");
+        const creditHour = document.querySelector("#creditHour");
+        const grade = document.querySelector("#grade");
+        const tbody = document.querySelector("#tbody");
+        const tfoot = document.querySelector("#tfoot");
+        const table = document.querySelector("#table");
+        const calcGp = document.querySelector("#calc-gp");
+        const clear = document.querySelector("#clear");
+
+        let gpArry = [];
+
+        add.addEventListener("click", () => {
+        if (
+            courseCode.value === "" ||
+            creditHour.value <= 0 ||
+            grade.selectedIndex === 0
+        ) {
+            alert("Wrong input,check and try again");
+        } else {
+            const tr = document.createElement("tr");
+            const tdCourseCode = document.createElement("td");
+            tdCourseCode.innerHTML = courseCode.value;
+            const tdcreditHour = document.createElement("td");
+            tdcreditHour.innerHTML = creditHour.value;
+            const tdGrade = document.createElement("td");
+            tdGrade.innerHTML = grade.options[grade.selectedIndex].text;
+            tr.appendChild(tdCourseCode);
+            tr.appendChild(tdcreditHour);
+            tr.appendChild(tdGrade);
+            tbody.appendChild(tr);
+            table.classList.remove("d-none");
+            calcGp.classList.remove("d-none");
+            clear.classList.remove("d-none");
+            gpArry.push({
+            creditHour: creditHour.value,
+            grade: grade.options[grade.selectedIndex].value,
+            });
+            console.log(gpArry);
+            courseCode.value = "";
+            creditHour.value = "";
+            grade.selectedIndex = "30";
+        }
+        });
+
+        calcGp.addEventListener("click", () => {
+        let creditHours = 0,
+            productOfcreditHoursAndGrades = 0,
+            sumOfProductOfcreditHoursAndGrades = 0;
+
+        gpArry.forEach((result) => {
+            creditHours += parseInt(result.creditHour);
+            productOfcreditHoursAndGrades =
+            parseInt(result.creditHour) * parseInt(result.grade);
+            sumOfProductOfcreditHoursAndGrades += productOfcreditHoursAndGrades;
+        });
+        const tr = document.createElement("tr");
+
+        tdTotalcreditHour = document.createElement("td");
+        tdTotalcreditHour.innerHTML = `Your Total Credit Hours is ${creditHours}`;
+
+        tdGpa = document.createElement("td");
+        tdGpa.setAttribute("colspan", "2");
+        tdGpa.innerHTML = `Your Total CGPA is ${(
+            sumOfProductOfcreditHoursAndGrades / creditHours
+        ).toFixed(2)} `;
+
+        tr.appendChild(tdTotalcreditHour);
+        tr.appendChild(tdGpa);
+            if (tfoot.querySelector("tr") !== null) {
+                tfoot.querySelector("tr").remove();
+            }
+        tfoot.appendChild(tr);
+        });
+
+        clear.addEventListener("click", () => {
+        gpArry = [];
+        tbody.querySelectorAll("*").forEach((child) => child.remove());
+        if (tfoot.querySelector("tr") !== null) {
+            tfoot.querySelector("tr").remove();
+        }
+
+        table.classList.add("d-none");
+        calcGp.classList.add("d-none");
+        clear.classList.add("d-none");
+        });
+
+    </script>
+</body>
+</html>
